@@ -4,8 +4,13 @@ import { Image, StyleSheet, View } from 'react-native';
 import image from '../../assets/bg.jpg';
 import styles from './styles';
 import { CustomButton } from '../../components';
-import { ScreenProps } from '../../utils/types/navigation';
-import MAPPED_BUTTONS from '../../utils/constants/mappedButtons';
+import { ScreenProps, ScreenList } from '../../utils/types/navigation';
+import { AuthButtonProps } from '../../utils/types/customButton';
+
+const AuthButtons: Array<AuthButtonProps> = [
+  { text: 'Sign Up', route: ScreenList.SignUpScreen },
+  { text: 'Login', route: ScreenList.LoginScreen },
+];
 
 function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
   return (
@@ -15,7 +20,7 @@ function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
       </View>
 
       <View style={styles.buttonContainer}>
-        {MAPPED_BUTTONS.map((button) => (
+        {AuthButtons.map((button) => (
           <CustomButton
             text={button.text}
             key={button.text}
