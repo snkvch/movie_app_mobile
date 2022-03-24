@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { ThemeProvider } from 'react-native-paper';
+
+import MoviesNavigator from './src/navigation/MoviesNavigator';
 
 function App() {
   return (
-    <SafeAreaView>
-      <Text>Welcome to a Movie App</Text>
-    </SafeAreaView>
+    <ThemeProvider>
+      <MoviesNavigator />
+    </ThemeProvider>
   );
 }
 export default App;
