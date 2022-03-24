@@ -3,10 +3,18 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-
   extends: ['plugin:react/recommended', 'airbnb'],
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
+      },
+    },
+  },
+  ignorePatterns: ['App.tsx'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
@@ -21,6 +29,12 @@ module.exports = {
     },
   ],
   rules: {
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'function-declaration',
+      },
+    ],
     'prettier/prettier': 'error',
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
@@ -34,6 +48,6 @@ module.exports = {
         json: 'ignorePackages',
       },
     ],
-    'import/no-unresolved': [2, { caseSensitive: false }], // заигнорила ту ошибку
+    'object-curly-newline': 'off',
   },
 };
