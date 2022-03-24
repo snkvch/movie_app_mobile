@@ -49,5 +49,7 @@ module.exports = {
       },
     ],
     'object-curly-newline': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
   },
 };

@@ -2,10 +2,10 @@ import React from 'react';
 import { Button } from 'react-native-paper';
 
 import styles from './styles';
-import { buttonProps } from '../../utils/types/customButton';
+import { ButtonProps } from '../../utils/types/customButton';
 import theme from '../../theme';
 
-function CustomButton({ text, onPress }: buttonProps) {
+function CustomButton({ text, onPress }: ButtonProps) {
   return (
     <Button
       color={theme.colors.WHITE}

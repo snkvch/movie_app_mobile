@@ -1,12 +1,16 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export type RootStackParamList =
-  | {
-      WelcomeScreen: undefined;
-      SignUpScreen: undefined;
-      LoginScreen: undefined;
-    }
-  | any;
+export enum ScreenList {
+  WelcomeScreen = 'WelcomeScreen',
+  SignUpScreen = 'SignUpScreen',
+  LoginScreen = 'LoginScreen',
+}
+
+export type RootStackParamList = {
+  [ScreenList.WelcomeScreen]: { name: string } | undefined;
+  [ScreenList.SignUpScreen]: { name: string } | undefined;
+  [ScreenList.LoginScreen]: { name: string } | undefined;
+};
 
 type NavProp = NativeStackNavigationProp<RootStackParamList>;
 

@@ -3,9 +3,9 @@ import { Image, StyleSheet, View } from 'react-native';
 
 import image from '../../assets/bg.jpg';
 import styles from './styles';
-import CustomButton from '../../components/CustomButton/CustomButton';
+import { CustomButton } from '../../components';
 import { ScreenProps } from '../../utils/types/navigation';
-import BUTTONS_TEXT from '../../utils/constants/buttonsText';
+import MAPPED_BUTTONS from '../../utils/constants/mappedButtons';
 
 function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
   return (
@@ -15,7 +15,7 @@ function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
       </View>
 
       <View style={styles.buttonContainer}>
-        {BUTTONS_TEXT.map((button) => (
+        {MAPPED_BUTTONS.map((button) => (
           <CustomButton
             text={button.text}
             key={button.text}

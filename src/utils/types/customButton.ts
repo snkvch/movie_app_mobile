@@ -1,4 +1,4 @@
-export type buttonProps = {
+export type ButtonProps = {
   text: string;
   onPress(): void;
 };
