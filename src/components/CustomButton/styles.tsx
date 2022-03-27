@@ -6,7 +6,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 35,
     justifyContent: 'center',
-    marginVertical: 20,
+    marginVertical: 25,
+  },
+  label: {
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 });
 export default styles;

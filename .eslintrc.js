@@ -36,6 +36,7 @@ module.exports = {
       },
     ],
     'prettier/prettier': 'error',
+    indent: 'off',
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/jsx-filename-extension': [
@@ -51,5 +52,6 @@ module.exports = {
     'object-curly-newline': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
+    'operator-linebreak': 'off',
   },
 };
