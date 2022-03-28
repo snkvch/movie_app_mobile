@@ -1,11 +1,12 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
-import image from '../../assets/bg.jpg';
-import styles from './styles';
 import { CustomButton } from '../../components';
 import { ScreenProps, ScreenList } from '../../utils/types/navigation';
-import { AuthButtonProps } from '../../utils/types/customButton';
+import { AuthButtonProps } from '../../utils/types/button';
+
+import image from '../../assets/bg.jpg';
+import styles from './styles';
 
 const AuthButtons: Array<AuthButtonProps> = [
   { text: 'Sign Up', route: ScreenList.SignUpScreen },
@@ -22,6 +23,7 @@ function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
       <View style={styles.buttonContainer}>
         {AuthButtons.map((button) => (
           <CustomButton
+            mode="contained"
             text={button.text}
             key={button.text}
             onPress={() => navigation.navigate(button.route)}

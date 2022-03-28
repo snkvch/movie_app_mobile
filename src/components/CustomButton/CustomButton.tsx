@@ -1,18 +1,32 @@
 import React from 'react';
 import { Button } from 'react-native-paper';
 
-import styles from './styles';
-import { ButtonProps } from '../../utils/types/customButton';
+import { ButtonProps } from '../../utils/types/button';
 import theme from '../../theme';
+import styles from './styles';
 
-function CustomButton({ text, onPress }: ButtonProps) {
+function CustomButton({ text, onPress, mode, btnColor }: ButtonProps) {
+  const spacing = mode === 'contained' ? 5 : 0;
+  const content = mode === 'contained' ? { height: '100%' } : null;
+
+  let btnTextColor;
+  if (mode === 'contained') {
+    if (btnColor === 'orange') {
+      btnTextColor = theme.colors.ORANGE;
+    } else {
+      btnTextColor = theme.colors.WHITE;
+    }
+  } else {
+    btnTextColor = theme.colors.ORANGE;
+  }
+
   return (
     <Button
-      color={theme.colors.WHITE}
-      mode="contained"
+      color={btnTextColor}
+      mode={mode}
       style={styles.button}
-      labelStyle={{ fontSize: 15, fontWeight: 'bold', letterSpacing: 5 }}
-      contentStyle={{ height: '100%' }}
+      labelStyle={(styles.label, { letterSpacing: spacing })}
+      contentStyle={content}
       onPress={onPress}
     >
       {text}
