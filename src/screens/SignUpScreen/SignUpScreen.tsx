@@ -1,17 +1,21 @@
 import { useFormik } from 'formik';
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import { IconButton, Title } from 'react-native-paper';
+import auth from '@react-native-firebase/auth';
 
 import { CustomButton, Container, TextInput, Footer } from '../../components';
 import {
   PASSWORD_CONFIRMATION_FIELD,
   EMAIL_FIELD,
-  NAME_FIELD,
   PASSWORD_FIELD,
 } from '../../utils/constants/fieldConstants';
 import { ScreenList, ScreenProps } from '../../utils/types/navigation';
-import { validationSchema } from '../../utils/validators';
+import { signUpValidationSchema } from '../../utils/validators';
+import {
+  Authentication,
+  FirebaseError,
+} from '../../utils/types/authentication';
 
 import styles from '../LoginScreen/styles';
 
@@ -21,6 +25,8 @@ const SIGN_UP = 'Sign Up';
 const TITLE = 'Create account';
 const INSTRUCTION = 'Please, enter your name, email and password';
 const CONFIRM_PASSWORD = 'Confirm password';
+const EMAIL_IN_USE = 'That email address is already in use!';
+const INVALID_EMAIL = 'That email address is invalid!';
 
 function SignUpScreen({ navigation }: ScreenProps) {
   const navigateToBack = () => {
@@ -30,19 +36,33 @@ function SignUpScreen({ navigation }: ScreenProps) {
     navigation.navigate(ScreenList.LoginScreen);
   };
 
+  const onSignUp = async ({ Email, Password }: Authentication) => {
+    await auth()
+      .createUserWithEmailAndPassword(Email, Password)
+      .catch((error: FirebaseError) => {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert(EMAIL_IN_USE);
+        }
+        if (error.code === 'auth/invalid-email') {
+          Alert.alert(INVALID_EMAIL);
+        }
+      });
+  };
+
   const footer = (
     <Footer onPress={navigateToSignUp} title={ACCOUNT_EXISTS} action={LOGIN} />
   );
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: {
-        [NAME_FIELD]: '',
         [EMAIL_FIELD]: '',
         [PASSWORD_FIELD]: '',
         [PASSWORD_CONFIRMATION_FIELD]: '',
       },
-      onSubmit: (textInput) => console.log(textInput), // потом добавлю movies page
-      validationSchema,
+      onSubmit: async (userData) => {
+        await onSignUp(userData);
+      },
+      validationSchema: signUpValidationSchema,
     });
 
   return (
@@ -52,17 +72,6 @@ function SignUpScreen({ navigation }: ScreenProps) {
         <View style={styles.formContainer}>
           <Title style={styles.title}>{TITLE}</Title>
           <Text style={styles.instruction}>{INSTRUCTION}</Text>
-          <TextInput
-            mode="outlined"
-            label={NAME_FIELD}
-            icon="head"
-            onChangeText={handleChange(NAME_FIELD)}
-            onBlur={handleBlur(NAME_FIELD)}
-            value={values.Name}
-          />
-          {errors.Name && touched.Name && (
-            <Text style={styles.error}>{errors.Name}</Text>
-          )}
           <TextInput
             mode="outlined"
             label={EMAIL_FIELD}
@@ -100,7 +109,7 @@ function SignUpScreen({ navigation }: ScreenProps) {
               <Text style={styles.error}>{errors.PasswordConfirmation}</Text>
             )}
         </View>
-        <View>
+        <View style={styles.customButtonContainer}>
           <CustomButton
             btnColor="orange"
             mode="contained"

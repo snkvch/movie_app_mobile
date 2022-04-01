@@ -2,9 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    top: '25%',
     alignItems: 'center',
-    bottom: 2,
   },
 });
 export default styles;

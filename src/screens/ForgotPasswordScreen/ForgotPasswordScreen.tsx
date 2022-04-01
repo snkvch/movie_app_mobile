@@ -1,12 +1,13 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { IconButton, Text, Title } from 'react-native-paper';
 import { useFormik } from 'formik';
+import auth from '@react-native-firebase/auth';
 
 import { ScreenList, ScreenProps } from '../../utils/types/navigation';
 import { Container, CustomButton, Footer, TextInput } from '../../components';
 import { EMAIL_FIELD } from '../../utils/constants/fieldConstants';
-import { validationSchema } from '../../utils/validators';
+import { emailValidationSchema } from '../../utils/validators';
 
 import styles from '../LoginScreen/styles';
 
@@ -15,6 +16,7 @@ const INSTRUCTION = 'Enter your email and we will send you a code';
 const SEND_CODE = 'Send a code';
 const QUESTION = 'Do not have an account?';
 const ACTION = 'Sign Up here';
+const ERROR = 'Oops, something went wrong';
 
 function ForgotPasswordScreen({ navigation }: ScreenProps) {
   const navigateToWelcomePage = () => {
@@ -30,11 +32,22 @@ function ForgotPasswordScreen({ navigation }: ScreenProps) {
   const footer = (
     <Footer title={QUESTION} action={ACTION} onPress={navigateToSignUp} />
   );
-  const { values, errors, touched, handleChange, handleBlur, isValid } =
+
+  const onPasswordReset = async (Email: string) => {
+    await auth()
+      .sendPasswordResetEmail(Email)
+      .then(navigateToPasswordChanged)
+      .catch(() => Alert.alert(ERROR));
+  };
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: { [EMAIL_FIELD]: '' },
-      onSubmit: (textInput) => console.log(textInput),
-      validationSchema,
+      onSubmit: async (input) => {
+        const { Email } = input;
+        await onPasswordReset(Email);
+      },
+      validationSchema: emailValidationSchema,
     });
 
   return (
@@ -63,8 +76,7 @@ function ForgotPasswordScreen({ navigation }: ScreenProps) {
             btnColor="orange"
             mode="contained"
             text={SEND_CODE}
-            onPress={navigateToPasswordChanged}
-            disabled={!isValid}
+            onPress={handleSubmit}
           />
         </View>
       </Container>

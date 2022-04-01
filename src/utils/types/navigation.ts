@@ -6,6 +6,7 @@ export enum ScreenList {
   LoginScreen = 'LoginScreen',
   ForgotPasswordScreen = 'ForgotPasswordScreen',
   PasswordChangedScreen = 'PasswordChangedScreen',
+  MoviesScreen = 'MoviesScreen',
 }
 
 export type RootStackParamList = {
@@ -14,9 +15,10 @@ export type RootStackParamList = {
   [ScreenList.LoginScreen]: { name: string } | undefined;
   [ScreenList.ForgotPasswordScreen]: { name: string } | undefined;
   [ScreenList.PasswordChangedScreen]: { name: string } | undefined;
+  [ScreenList.MoviesScreen]: { name: string } | undefined;
 };
 
-type NavProp = NativeStackNavigationProp<RootStackParamList>;
+export type NavProp = NativeStackNavigationProp<RootStackParamList>;
 
 export type ScreenProps = {
   navigation: NavProp;

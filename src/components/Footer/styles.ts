@@ -3,13 +3,17 @@ import theme from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    bottom: '13%',
   },
   footerText: {
     color: theme.colors.WHITE,
+  },
+  footerTextContainer: {
+    flexDirection: 'row',
+    bottom: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

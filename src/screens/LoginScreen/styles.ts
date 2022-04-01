@@ -30,5 +30,8 @@ const styles = StyleSheet.create({
   footerText: {
     color: theme.colors.WHITE,
   },
+  customButtonContainer: {
+    top: 35,
+  },
 });
 export default styles;
