@@ -20,23 +20,25 @@ function SocialMediaLogin(): JSX.Element {
   GoogleSignin.configure({
     webClientId: WEB_CLIENT_ID,
   });
+  const onGoogleSignIn = async () => {
+    const { idToken } = await GoogleSignin.signIn();
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    await auth().signInWithCredential(googleCredential);
+  };
 
-  const onGoogleButtonPress = async () => {
-    try {
-      const { idToken } = await GoogleSignin.signIn();
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      const user = auth().signInWithCredential(googleCredential);
-      if (await user) {
+  const handleSignIn = () => {
+    onGoogleSignIn()
+      .then(() => {
         navigateToMovies();
-      }
-    } catch (err) {
-      const error = err as FirebaseError;
-      Alert.alert(error.message);
-    }
+      })
+      .catch((err) => {
+        const error = err as FirebaseError;
+        Alert.alert(error.message);
+      });
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onGoogleButtonPress}>
+    <TouchableOpacity style={styles.container} onPress={handleSignIn}>
       <Google />
     </TouchableOpacity>
   );
