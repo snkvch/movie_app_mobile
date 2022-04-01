@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-native-paper';
+import { View } from 'react-native';
 
 import { ButtonProps } from '../../utils/types/button';
 import theme from '../../theme';
@@ -21,16 +22,18 @@ function CustomButton({ text, onPress, mode, btnColor }: ButtonProps) {
   }
 
   return (
-    <Button
-      color={btnTextColor}
-      mode={mode}
-      style={styles.button}
-      labelStyle={(styles.label, { letterSpacing: spacing })}
-      contentStyle={content}
-      onPress={onPress}
-    >
-      {text}
-    </Button>
+    <View style={styles.container}>
+      <Button
+        color={btnTextColor}
+        mode={mode}
+        style={styles.button}
+        labelStyle={(styles.label, { letterSpacing: spacing })}
+        contentStyle={content}
+        onPress={onPress}
+      >
+        {text}
+      </Button>
+    </View>
   );
 }
 

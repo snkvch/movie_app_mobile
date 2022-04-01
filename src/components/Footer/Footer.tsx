@@ -9,13 +9,13 @@ import styles from './styles';
 
 function Footer({ onPress, title, action }: FooterProps) {
   return (
-    <>
+    <View style={styles.container}>
       <SocialMediaLogin />
-      <View style={styles.container}>
+      <View style={styles.footerTextContainer}>
         <Text style={styles.footerText}>{title}</Text>
         <CustomButton text={action} mode="text" onPress={onPress} />
       </View>
-    </>
+    </View>
   );
 }
 

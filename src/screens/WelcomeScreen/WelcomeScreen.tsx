@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+import { firebase } from '@react-native-firebase/auth';
 
 import { CustomButton } from '../../components';
 import { ScreenProps, ScreenList } from '../../utils/types/navigation';
@@ -14,6 +15,19 @@ const AuthButtons: Array<AuthButtonProps> = [
 ];
 
 function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
+  const navigateToMovies = () => {
+    navigation.navigate(ScreenList.MoviesScreen);
+  };
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        navigateToMovies();
+      }
+    });
+    return unsubscribe;
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={{ ...StyleSheet.absoluteFillObject }}>

@@ -8,6 +8,7 @@ import {
   LoginScreen,
   ForgotPasswordScreen,
   PasswordChangedScreen,
+  MoviesScreen,
 } from '../screens';
 import { RootStackParamList, ScreenList } from '../utils/types/navigation';
 
@@ -28,6 +29,7 @@ function MoviesNavigator() {
           name={ScreenList.PasswordChangedScreen}
           component={PasswordChangedScreen}
         />
+        <Screen name={ScreenList.MoviesScreen} component={MoviesScreen} />
       </Navigator>
     </NavigationContainer>
   );
