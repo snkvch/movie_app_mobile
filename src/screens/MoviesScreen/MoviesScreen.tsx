@@ -1,26 +1,17 @@
 import React from 'react';
-import { Alert, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { IconButton } from 'react-native-paper';
-import { firebase } from '@react-native-firebase/auth';
+import { View, Dimensions } from 'react-native';
 
-import { ScreenList, ScreenProps } from '../../utils/types/navigation';
+import { ScreenProps } from '../../utils/types/navigation';
+import { Header, SearchBar } from '../../components';
+
+import styles from './styles';
 
 function MoviesScreen({ navigation }: ScreenProps) {
-  const handleSignOut = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => navigation.navigate(ScreenList.WelcomeScreen))
-      .catch(() => Alert.alert('Something went wrong'));
-  };
-
   return (
-    <SafeAreaView>
-      <IconButton icon="arrow-collapse-left" onPress={handleSignOut} />
-      <Text>Welcome to Movies Page</Text>
-      <Text>{firebase.auth().currentUser?.displayName}</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Header navigation={navigation} />
+      <SearchBar />
+    </View>
   );
 }
 

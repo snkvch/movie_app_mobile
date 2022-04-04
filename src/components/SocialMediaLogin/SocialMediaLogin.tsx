@@ -14,7 +14,7 @@ import styles from './styles';
 function SocialMediaLogin(): JSX.Element {
   const navigation = useNavigation<NavProp>();
   const navigateToMovies = () => {
-    navigation.navigate(ScreenList.MoviesScreen);
+    navigation.navigate(ScreenList.HomeTabNavigator);
   };
 
   GoogleSignin.configure({

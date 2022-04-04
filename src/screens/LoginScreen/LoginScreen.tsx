@@ -33,8 +33,8 @@ function LoginScreen({ navigation }: ScreenProps) {
   const navigateToForgotPassword = () => {
     navigation.navigate(ScreenList.ForgotPasswordScreen);
   };
-  const navigateToMovies = () => {
-    navigation.navigate(ScreenList.MoviesScreen);
+  const navigateToHomeTab = () => {
+    navigation.navigate(ScreenList.HomeTabNavigator);
   };
 
   const footer = (
@@ -44,7 +44,7 @@ function LoginScreen({ navigation }: ScreenProps) {
   const onLogin = async ({ Email, Password }: Authentication) => {
     try {
       await auth().signInWithEmailAndPassword(Email, Password);
-      navigateToMovies();
+      navigateToHomeTab();
     } catch {
       Alert.alert(INCORRECT_DATA);
     }

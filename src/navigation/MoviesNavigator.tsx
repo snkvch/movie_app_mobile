@@ -10,6 +10,7 @@ import {
   PasswordChangedScreen,
   MoviesScreen,
 } from '../screens';
+import HomeTabNavigator from './HomeTabNavigator/HomeTabNavigator';
 import { RootStackParamList, ScreenList } from '../utils/types/navigation';
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
@@ -30,6 +31,10 @@ function MoviesNavigator() {
           component={PasswordChangedScreen}
         />
         <Screen name={ScreenList.MoviesScreen} component={MoviesScreen} />
+        <Screen
+          name={ScreenList.HomeTabNavigator}
+          component={HomeTabNavigator}
+        />
       </Navigator>
     </NavigationContainer>
   );
