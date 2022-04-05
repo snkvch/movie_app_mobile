@@ -5,7 +5,7 @@ import { Searchbar as RNSearchBar } from 'react-native-paper';
 import theme from '../../theme';
 import styles from './styles';
 
-function SearchBar() {
+function SearchBar(): JSX.Element {
   const [textInput, setTextInput] = useState('');
   const handlerChange = (e: string) => {
     setTextInput(e);
