@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { ScreenProps } from '../../utils/types/navigation';
 import { Header, SearchBar } from '../../components';
 
-import { getMovie } from '../../redux/movies/actions';
+import { fetchMovies } from '../../redux/movies/actions';
 import useAppDispatch from '../../redux/hooks';
 
 import styles from './styles';
@@ -13,7 +13,7 @@ function MoviesScreen({ navigation }: ScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getMovie());
+    dispatch(fetchMovies());
   }, [dispatch]);
 
   return (

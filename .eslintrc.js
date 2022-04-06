@@ -53,5 +53,6 @@ module.exports = {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     'operator-linebreak': 'off',
+    'default-param-last': 'off',
   },
 };
