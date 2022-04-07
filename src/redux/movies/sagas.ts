@@ -1,12 +1,27 @@
-import { takeEvery, put, call } from '@redux-saga/core/effects';
+import {
+  takeEvery,
+  put,
+  call,
+  CallEffect,
+  PutEffect,
+} from '@redux-saga/core/effects';
+import { AxiosResponse } from 'axios';
+
 import fetchMovies from '../../api/fetchMovies';
 import { storeMovies } from './actions';
-import { MoviesActionTypes, FetchMoviesActionSucceeded } from './types';
+import { MoviesActionTypes, IMovies, FetchMoviesAction } from './types';
 
-function* requestMovies({ payload }: FetchMoviesActionSucceeded) {
+type Response = {
+  Response: boolean;
+  Search: IMovies[];
+};
+
+function* requestMovies({
+  payload,
+}: FetchMoviesAction): Generator<CallEffect | PutEffect, void, never> {
   try {
-    const { data: movies } = yield call(fetchMovies, payload);
-    yield put(storeMovies(movies));
+    const { data }: AxiosResponse<Response> = yield call(fetchMovies, payload);
+    yield put(storeMovies(data.Search));
   } catch (error) {
     yield put({ type: MoviesActionTypes.MOVIES_FETCH_FAILED });
   }

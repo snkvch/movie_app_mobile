@@ -1,8 +1,5 @@
-import { StoreState } from '../rootReducer';
-import { IMovies } from './types';
+import { RootState } from '../store';
 
-const getAllMovies = ({ movies }: StoreState): { movies: IMovies[] } => ({
-  movies,
-});
+const getAllMovies = ({ movies }: RootState) => movies.movies;
 
 export default getAllMovies;

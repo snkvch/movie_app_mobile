@@ -1,14 +1,24 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { IMovies } from '../../redux/movies/types';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { MovieCard } from '../../utils/types/movieItem';
 
-function MovieItem(props: IMovies): JSX.Element {
-  const { data } = props;
+import styles from './styles';
+
+function MovieItem({ movie }: MovieCard): JSX.Element {
+  const { Title, Year, Poster } = movie;
+
   return (
-    <View>
-      <Text>Movie Item</Text>
-      <Text>{data.Title}</Text>
-    </View>
+    <TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.wrapper}>
+          <Image style={styles.image} source={{ uri: Poster }} />
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{Title}</Text>
+            <Text>{Year}</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 }
 

@@ -6,7 +6,8 @@ import { IMovies } from './movies/types';
 export interface StoreState {
   movies: IMovies[];
 }
+const rootReducer = combineReducers({ movies: moviesReducer });
 
-const rootReducer = combineReducers<StoreState>({ movies: moviesReducer });
+export type RootState = ReturnType<typeof rootReducer>;
 
 export default rootReducer;

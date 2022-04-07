@@ -13,25 +13,22 @@ export enum MoviesActionTypes {
 }
 
 export interface MoviesState {
-  readonly movies: IMovies[];
-  readonly errors: [] | null;
-  readonly loading: boolean;
+  movies: IMovies[];
+  errors: null | string;
+  loading: boolean;
 }
 
 export interface FetchMoviesAction {
   type: MoviesActionTypes.MOVIES_FETCH_REQUESTED;
+  payload: string | undefined;
 }
 export interface FetchMoviesActionSucceeded {
   type: MoviesActionTypes.MOVIES_FETCH_SUCCEEDED;
-  payload: {
-    movies: IMovies[];
-  };
+  payload: IMovies[];
 }
 export interface FetchMoviesActionFailed {
   type: MoviesActionTypes.MOVIES_FETCH_FAILED;
-  payload: {
-    error: Error | string;
-  };
+  payload: string;
 }
 
 export type ActionTypes =

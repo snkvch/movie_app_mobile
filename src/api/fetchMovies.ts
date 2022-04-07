@@ -1,12 +1,8 @@
-import { AxiosResponse } from 'axios';
-import { IMovies } from '../redux/movies/types';
 import axiosInstance from './axiosInstance';
 
-async function getMoviesFetch(
-  textInput: string,
-): Promise<AxiosResponse<IMovies[]>> {
+async function getMoviesFetch(textInput?: string) {
   const defaultMovie = 'Friends';
-  const movie = defaultMovie || textInput;
+  const movie = textInput || defaultMovie;
   const response = await axiosInstance.get(`${movie}&type=movie`);
   return response;
 }
