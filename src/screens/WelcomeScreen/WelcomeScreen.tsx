@@ -15,14 +15,14 @@ const AuthButtons: Array<AuthButtonProps> = [
 ];
 
 function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
-  const navigateToMovies = () => {
-    navigation.navigate(ScreenList.MoviesScreen);
+  const navigateToHomeTab = () => {
+    navigation.navigate(ScreenList.HomeTabNavigator);
   };
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        navigateToMovies();
+        navigateToHomeTab();
       }
     });
     return unsubscribe;
