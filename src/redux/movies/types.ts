@@ -1,9 +1,14 @@
-export interface IMovies {
+export interface IMovie {
   Title: string;
   Year: string;
   imdbID: string;
   Type: string;
   Poster: string;
+}
+
+export interface Response {
+  Response: string;
+  Search: IMovie[];
 }
 
 export enum MoviesActionTypes {
@@ -13,18 +18,18 @@ export enum MoviesActionTypes {
 }
 
 export interface MoviesState {
-  movies: IMovies[];
+  movies: IMovie[];
   errors: null | string;
   loading: boolean;
 }
 
 export interface FetchMoviesAction {
   type: MoviesActionTypes.MOVIES_FETCH_REQUESTED;
-  payload: string | undefined;
+  payload?: string;
 }
 export interface FetchMoviesActionSucceeded {
   type: MoviesActionTypes.MOVIES_FETCH_SUCCEEDED;
-  payload: IMovies[];
+  payload: IMovie[];
 }
 export interface FetchMoviesActionFailed {
   type: MoviesActionTypes.MOVIES_FETCH_FAILED;

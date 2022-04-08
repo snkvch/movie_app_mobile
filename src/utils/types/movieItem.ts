@@ -1,5 +1,5 @@
-import { IMovies } from '../../redux/movies/types';
+import { IMovie } from '../../redux/movies/types';
 
 export interface MovieCard {
-  movie: IMovies;
+  movie: IMovie;
 }

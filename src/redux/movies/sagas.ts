@@ -9,12 +9,7 @@ import { AxiosResponse } from 'axios';
 
 import fetchMovies from '../../api/fetchMovies';
 import { storeMovies } from './actions';
-import { MoviesActionTypes, IMovies, FetchMoviesAction } from './types';
-
-type Response = {
-  Response: boolean;
-  Search: IMovies[];
-};
+import { MoviesActionTypes, Response, FetchMoviesAction } from './types';
 
 function* requestMovies({
   payload,

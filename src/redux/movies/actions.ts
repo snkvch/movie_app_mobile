@@ -1,4 +1,4 @@
-import { MoviesActionTypes, IMovies } from './types';
+import { MoviesActionTypes, IMovie } from './types';
 
 export const fetchMovies = (textInput?: string) =>
   ({
@@ -6,7 +6,7 @@ export const fetchMovies = (textInput?: string) =>
     payload: textInput,
   } as const);
 
-export const storeMovies = (movies: IMovies[]) =>
+export const storeMovies = (movies: IMovie[]) =>
   ({
     type: MoviesActionTypes.MOVIES_FETCH_SUCCEEDED,
     payload: movies,
