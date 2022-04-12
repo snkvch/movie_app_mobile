@@ -6,7 +6,7 @@ import {
 } from '../utils/constants/imdbId';
 
 const axiosInstance = axios.create({
-  baseURL: `${REACT_APP_API_BASE}/?apiKey=${REACT_APP_API_KEY}&s=`,
+  baseURL: `${REACT_APP_API_BASE}/?apiKey=${REACT_APP_API_KEY}&`,
 });
 
 export default axiosInstance;

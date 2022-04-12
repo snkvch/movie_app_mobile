@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
+import detailsReducer from './details/reducer';
 
 import moviesReducer from './movies/reducer';
-import { IMovies } from './movies/types';
 
-export interface StoreState {
-  movies: IMovies[];
-}
-const rootReducer = combineReducers({ movies: moviesReducer });
+const rootReducer = combineReducers({
+  movies: moviesReducer,
+  details: detailsReducer,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
 

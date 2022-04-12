@@ -9,6 +9,7 @@ import {
   ForgotPasswordScreen,
   PasswordChangedScreen,
   MoviesScreen,
+  DetailsScreen,
 } from '../screens';
 import HomeTabNavigator from './HomeTabNavigator/HomeTabNavigator';
 import { RootStackParamList, ScreenList } from '../utils/types/navigation';
@@ -35,6 +36,7 @@ function MoviesNavigator() {
           name={ScreenList.HomeTabNavigator}
           component={HomeTabNavigator}
         />
+        <Screen name={ScreenList.DetailsScreen} component={DetailsScreen} />
       </Navigator>
     </NavigationContainer>
   );
