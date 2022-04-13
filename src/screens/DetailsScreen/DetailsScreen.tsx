@@ -19,15 +19,13 @@ import styles from './styles';
 function DetailsScreen({ route, navigation }: DetailsScreenProps) {
   const dispatch = useAppDispatch();
   const detailsSelector = useAppSelector(getMovieDetails);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(false);
     dispatch(fetchMovieDetails(route.params.id));
     return () => {
       dispatch(removeMovieDetails());
     };
-  }, [dispatch, route.params.id, setIsLoading]);
+  }, [dispatch, route.params.id]);
 
   const navigateToBack = () => {
     navigation.goBack();
@@ -75,10 +73,8 @@ function DetailsScreen({ route, navigation }: DetailsScreenProps) {
 
   return (
     <ScrollView>
-      {isLoading ? (
-        <SafeAreaView>
-          <ActivityIndicator isLoading={isLoading} />
-        </SafeAreaView>
+      {!Object.keys(detailsSelector).length ? (
+        <ActivityIndicator />
       ) : (
         <>
           <Image

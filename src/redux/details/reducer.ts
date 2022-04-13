@@ -2,24 +2,11 @@ import {
   MovieDetailsState,
   MovieDetailsActionTypes,
   ActionTypes,
+  IMovieDetails,
 } from './types';
 
 const initialState: MovieDetailsState = {
-  details: {
-    Title: '',
-    imdbRating: '',
-    imdbVotes: '',
-    Runtime: '',
-    Year: '',
-    Plot: '',
-    Director: '',
-    Actors: '',
-    Genre: '',
-    Language: '',
-    Awards: '',
-    Poster: '',
-    Response: '',
-  },
+  details: {} as IMovieDetails,
   loading: false,
   error: null,
 };
