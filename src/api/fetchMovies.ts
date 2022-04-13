@@ -1,10 +1,13 @@
 import axiosInstance from './axiosInstance';
 
-async function getMoviesFetch(textInput?: string) {
+export async function getMoviesFetch(textInput?: string) {
   const defaultMovie = 'Friends';
   const movie = textInput || defaultMovie;
-  const response = await axiosInstance.get(`${movie}&type=movie`);
+  const response = await axiosInstance.get(`&s=${movie}&type=movie`);
   return response;
 }
 
-export default getMoviesFetch;
+export async function getMovieDetailsFetch(imdbID: string) {
+  const response = await axiosInstance.get(`&i=${imdbID}&Plot=full`);
+  return response;
+}

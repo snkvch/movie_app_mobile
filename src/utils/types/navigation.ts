@@ -1,4 +1,7 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 
 export enum ScreenList {
   WelcomeScreen = 'WelcomeScreen',
@@ -8,6 +11,7 @@ export enum ScreenList {
   PasswordChangedScreen = 'PasswordChangedScreen',
   MoviesScreen = 'MoviesScreen',
   HomeTabNavigator = 'HomeTabNavigator',
+  DetailsScreen = 'DetailsScreen',
 }
 
 export type RootStackParamList = {
@@ -18,7 +22,13 @@ export type RootStackParamList = {
   [ScreenList.PasswordChangedScreen]: { name: string } | undefined;
   [ScreenList.MoviesScreen]: { name: string } | undefined;
   [ScreenList.HomeTabNavigator]: { name: string } | undefined;
+  [ScreenList.DetailsScreen]: { id: string };
 };
+
+export type DetailsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  ScreenList.DetailsScreen
+>;
 
 export type NavProp = NativeStackNavigationProp<RootStackParamList>;
 

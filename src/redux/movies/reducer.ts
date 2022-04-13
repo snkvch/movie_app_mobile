@@ -6,7 +6,7 @@ const initialState: MoviesState = {
   errors: null,
 };
 
-const questionReducer = (
+const moviesReducer = (
   state = initialState,
   action: ActionTypes,
 ): MoviesState => {
@@ -29,4 +29,4 @@ const questionReducer = (
   }
 };
 
-export default questionReducer;
+export default moviesReducer;
