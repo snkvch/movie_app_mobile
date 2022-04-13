@@ -1,6 +1,5 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, ScrollView, Text, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -11,30 +10,29 @@ import {
 import getMovieDetails from '../../redux/details/selectors';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import LabelIcon from '../../components/LabelIcon/LabelIcon';
-import { RootStackParamList, ScreenList } from '../../utils/types/navigation';
+import ActivityIndicator from '../../components/ActivityIndicator/ActivityIndicator';
+import { DetailsScreenProps } from '../../utils/types/navigation';
 
 import theme from '../../theme';
 import styles from './styles';
 
-type Props = NativeStackScreenProps<
-  RootStackParamList,
-  ScreenList.DetailsScreen
->;
-
-function DetailsScreen({ route, navigation }: Props) {
+function DetailsScreen({ route, navigation }: DetailsScreenProps) {
   const dispatch = useAppDispatch();
   const detailsSelector = useAppSelector(getMovieDetails);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(false);
     dispatch(fetchMovieDetails(route.params.id));
     return () => {
       dispatch(removeMovieDetails());
     };
-  }, [dispatch, route.params.id]);
+  }, [dispatch, route.params.id, setIsLoading]);
 
   const navigateToBack = () => {
     navigation.goBack();
   };
+
   const {
     Title,
     imdbRating,
@@ -49,17 +47,43 @@ function DetailsScreen({ route, navigation }: Props) {
     Poster,
   } = detailsSelector;
 
+  const labelIcons = [
+    { name: 'star', movieDetail: imdbRating },
+    { name: 'calendar', movieDetail: Year },
+    { name: 'clock', movieDetail: Runtime },
+    { name: 'heart', movieDetail: imdbVotes },
+  ];
+  const additionalInfo = [
+    { name: 'Director:', movieDetail: Director },
+    { name: 'Actors:', movieDetail: Actors },
+    { name: 'Awards:', movieDetail: Awards },
+    { name: 'Genre:', movieDetail: Genre },
+  ];
+
+  const displayLabelIcons = labelIcons.map((icon) => (
+    <View style={styles.labelItem} key={icon.name}>
+      <LabelIcon name={icon.name} />
+      <Text style={styles.labelText}>{icon.movieDetail}</Text>
+    </View>
+  ));
+  const displayAdditionalInfo = additionalInfo.map((info) => (
+    <View style={styles.additionalInfoContainer} key={info.name}>
+      <Text style={styles.additionalInfoText}>{info.name}</Text>
+      <Text>{info.movieDetail}</Text>
+    </View>
+  ));
+
   return (
     <ScrollView>
-      {Object.values(detailsSelector).length === 0 ? (
+      {isLoading ? (
         <SafeAreaView>
-          <Text style={styles.loadingText}>Loading...</Text>
+          <ActivityIndicator isLoading={isLoading} />
         </SafeAreaView>
       ) : (
         <>
           <Image
             source={{ uri: Poster }}
-            style={StyleSheet.absoluteFillObject}
+            style={styles.backgroundImage}
             blurRadius={3}
           />
           <SafeAreaView>
@@ -67,61 +91,27 @@ function DetailsScreen({ route, navigation }: Props) {
               <View style={styles.labelsContainer}>
                 <IconButton
                   icon="arrow-left"
-                  color="white"
+                  color={theme.colors.WHITE}
                   onPress={navigateToBack}
-                  style={{
-                    marginBottom: 50,
-                    backgroundColor: theme.colors.DARK_BLUE,
-                  }}
+                  style={styles.goBackButton}
                 />
-                <View style={styles.labelItem}>
-                  <LabelIcon name="star" />
-                  <Text style={styles.labelText}>{imdbRating}</Text>
-                </View>
-                <View style={styles.labelItem}>
-                  <LabelIcon name="calendar" />
-                  <Text style={styles.labelText}>{Year}</Text>
-                </View>
-                <View style={styles.labelItem}>
-                  <LabelIcon name="clock" />
-                  <Text style={styles.labelText}>{Runtime}</Text>
-                </View>
-                <View style={styles.labelItem}>
-                  <LabelIcon name="heart" />
-                  <Text style={styles.labelText}>{imdbVotes}</Text>
-                </View>
+
+                {displayLabelIcons}
               </View>
               <Image source={{ uri: Poster }} style={styles.poster} />
             </View>
+
             <View style={styles.descriptionContainer}>
               <IconButton
-                style={{
-                  backgroundColor: theme.colors.DARK_BLUE,
-                  alignSelf: 'center',
-                  bottom: 40,
-                }}
+                style={styles.likeButton}
                 size={35}
                 icon="heart"
                 color={theme.colors.WHITE}
               />
               <Text style={styles.title}>{Title}</Text>
               <Text style={styles.plot}>{Plot}</Text>
-              <View style={styles.additionalInfoContainer}>
-                <Text style={styles.additionalInfoText}>Director:</Text>
-                <Text>{Director}</Text>
-              </View>
-              <View style={styles.additionalInfoContainer}>
-                <Text style={styles.additionalInfoText}>Actors:</Text>
-                <Text>{Actors}</Text>
-              </View>
-              <View style={styles.additionalInfoContainer}>
-                <Text style={styles.additionalInfoText}>Awards:</Text>
-                <Text>{Awards}</Text>
-              </View>
-              <View style={styles.additionalInfoContainer}>
-                <Text style={styles.additionalInfoText}>Genre:</Text>
-                <Text>{Genre}</Text>
-              </View>
+
+              {displayAdditionalInfo}
             </View>
           </SafeAreaView>
         </>

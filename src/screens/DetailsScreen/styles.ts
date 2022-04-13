@@ -63,6 +63,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     alignSelf: 'center',
   },
+  goBackButton: {
+    marginBottom: 50,
+    backgroundColor: theme.colors.DARK_BLUE,
+  },
+  likeButton: {
+    backgroundColor: theme.colors.DARK_BLUE,
+    alignSelf: 'center',
+    bottom: 40,
+  },
+  backgroundImage: StyleSheet.absoluteFillObject,
 });
 
 export default styles;

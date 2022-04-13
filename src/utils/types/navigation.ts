@@ -1,4 +1,7 @@
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 
 export enum ScreenList {
   WelcomeScreen = 'WelcomeScreen',
@@ -21,6 +24,11 @@ export type RootStackParamList = {
   [ScreenList.HomeTabNavigator]: { name: string } | undefined;
   [ScreenList.DetailsScreen]: { id: string };
 };
+
+export type DetailsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  ScreenList.DetailsScreen
+>;
 
 export type NavProp = NativeStackNavigationProp<RootStackParamList>;
 
