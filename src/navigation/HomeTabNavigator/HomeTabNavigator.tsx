@@ -57,8 +57,8 @@ function TabNavigator() {
         tabBarStyle: styles.tabBar,
       })}
     >
-      <Tab.Screen name="Movies" component={MoviesScreen} />
-      <Tab.Screen name="Watchlist" component={WatchlistScreen} />
+      <Tab.Screen name={ROUTE_NAMES.MOVIES} component={MoviesScreen} />
+      <Tab.Screen name={ROUTE_NAMES.WATCHLIST} component={WatchlistScreen} />
     </Tab.Navigator>
   );
 }

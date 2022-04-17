@@ -3,6 +3,7 @@ import React from 'react';
 import { Alert, ScrollView, Text, View } from 'react-native';
 import { IconButton, Title } from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
+import { firebase } from '@react-native-firebase/firestore';
 
 import { CustomButton, Container, TextInput, Footer } from '../../components';
 import {
@@ -27,6 +28,8 @@ const INSTRUCTION = 'Please, enter your name, email and password';
 const CONFIRM_PASSWORD = 'Confirm password';
 const EMAIL_IN_USE = 'That email address is already in use!';
 const INVALID_EMAIL = 'That email address is invalid!';
+const FIREBASE_EMAIL_IN_USE = 'auth/email-already-in-use';
+const FIREBASE_INVALID_EMAIL = 'auth/invalid-email';
 
 function SignUpScreen({ navigation }: ScreenProps) {
   const navigateToBack = () => {
@@ -39,11 +42,18 @@ function SignUpScreen({ navigation }: ScreenProps) {
   const onSignUp = async ({ Email, Password }: Authentication) => {
     await auth()
       .createUserWithEmailAndPassword(Email, Password)
+      .then(() =>
+        firebase
+          .firestore()
+          .collection('users')
+          .doc(firebase.auth().currentUser?.uid)
+          .set({ Email, Password }),
+      )
       .catch((error: FirebaseError) => {
-        if (error.code === 'auth/email-already-in-use') {
+        if (error.code === FIREBASE_EMAIL_IN_USE) {
           Alert.alert(EMAIL_IN_USE);
         }
-        if (error.code === 'auth/invalid-email') {
+        if (error.code === FIREBASE_INVALID_EMAIL) {
           Alert.alert(INVALID_EMAIL);
         }
       });
