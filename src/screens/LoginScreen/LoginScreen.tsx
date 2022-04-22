@@ -12,9 +12,9 @@ import {
   PASSWORD_FIELD,
 } from '../../utils/constants/fieldConstants';
 import { Authentication } from '../../utils/types/authentication';
+import { RequestLoginEmailPassword } from '../../redux/user/actions';
 
 import styles from './styles';
-import { RequestLoginEmailPassword } from '../../redux/user/actions';
 
 const NO_ACCOUNT = 'Do not have an account?';
 const TITLE = 'Welcome Back';
