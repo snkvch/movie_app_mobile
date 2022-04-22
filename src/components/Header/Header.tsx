@@ -1,23 +1,18 @@
 import React from 'react';
-import { View, Alert } from 'react-native';
+import { View } from 'react-native';
 import { IconButton, Text } from 'react-native-paper';
-import { firebase } from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
+import { RequestLogout } from '../../redux/user/actions';
 
-import { ScreenList, ScreenProps } from '../../utils/types/navigation';
 import styles from './styles';
 
 const TITLE = 'Your Movie App';
-const ERROR = 'Something went wrong';
 
-function Header({ navigation }: ScreenProps) {
-  const navigateToWelcomeScreen = () => {
-    navigation.navigate(ScreenList.WelcomeScreen);
-  };
-  const onErrorAlert = () => {
-    Alert.alert(ERROR);
-  };
+function Header() {
+  const dispatch = useDispatch();
+
   const handleSignOut = () => {
-    firebase.auth().signOut().then(navigateToWelcomeScreen).catch(onErrorAlert);
+    dispatch(RequestLogout());
   };
 
   return (

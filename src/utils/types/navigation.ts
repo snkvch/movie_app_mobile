@@ -12,6 +12,7 @@ export enum ScreenList {
   MoviesScreen = 'MoviesScreen',
   HomeTabNavigator = 'HomeTabNavigator',
   DetailsScreen = 'DetailsScreen',
+  MoviesNavigator = 'MoviesNavigator',
 }
 
 export type RootStackParamList = {
@@ -23,6 +24,7 @@ export type RootStackParamList = {
   [ScreenList.MoviesScreen]: { name: string } | undefined;
   [ScreenList.HomeTabNavigator]: { name: string } | undefined;
   [ScreenList.DetailsScreen]: { id: string };
+  [ScreenList.MoviesNavigator]: { name: string } | undefined;
 };
 
 export type DetailsScreenProps = NativeStackScreenProps<

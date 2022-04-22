@@ -1,8 +1,8 @@
 import React from 'react';
-import { ScrollView, View, Alert } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { IconButton, Text, Title } from 'react-native-paper';
 import { useFormik } from 'formik';
-import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
 
 import { Container, CustomButton, TextInput, Footer } from '../../components';
 import { ScreenList, ScreenProps } from '../../utils/types/navigation';
@@ -12,6 +12,7 @@ import {
   PASSWORD_FIELD,
 } from '../../utils/constants/fieldConstants';
 import { Authentication } from '../../utils/types/authentication';
+import { RequestLoginEmailPassword } from '../../redux/user/actions';
 
 import styles from './styles';
 
@@ -21,9 +22,10 @@ const INSTRUCTION = 'Use your credentials below and login to your account';
 const LOGIN = 'Login';
 const FORGET_PASSWORD = 'Forgot password?';
 const SIGN_UP = 'Sign Up';
-const INCORRECT_DATA = 'Incorrect email or password';
 
 function LoginScreen({ navigation }: ScreenProps) {
+  const dispatch = useDispatch();
+
   const navigateToBack = () => {
     navigation.goBack();
   };
@@ -33,28 +35,20 @@ function LoginScreen({ navigation }: ScreenProps) {
   const navigateToForgotPassword = () => {
     navigation.navigate(ScreenList.ForgotPasswordScreen);
   };
-  const navigateToHomeTab = () => {
-    navigation.navigate(ScreenList.HomeTabNavigator);
-  };
 
   const footer = (
     <Footer onPress={navigateToSignUp} title={NO_ACCOUNT} action={SIGN_UP} />
   );
 
-  const onLogin = async ({ Email, Password }: Authentication) => {
-    try {
-      await auth().signInWithEmailAndPassword(Email, Password);
-      navigateToHomeTab();
-    } catch {
-      Alert.alert(INCORRECT_DATA);
-    }
+  const onLogin = ({ Email, Password }: Authentication) => {
+    dispatch(RequestLoginEmailPassword(Email, Password));
   };
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: { [EMAIL_FIELD]: '', [PASSWORD_FIELD]: '' },
-      onSubmit: async (userData) => {
-        await onLogin(userData);
+      onSubmit: (userData) => {
+        onLogin(userData);
       },
       validationSchema: loginValidationSchema,
     });

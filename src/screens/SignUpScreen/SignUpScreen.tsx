@@ -1,8 +1,8 @@
 import { useFormik } from 'formik';
 import React from 'react';
-import { Alert, ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { IconButton, Title } from 'react-native-paper';
-import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
 
 import { CustomButton, Container, TextInput, Footer } from '../../components';
 import {
@@ -12,12 +12,10 @@ import {
 } from '../../utils/constants/fieldConstants';
 import { ScreenList, ScreenProps } from '../../utils/types/navigation';
 import { signUpValidationSchema } from '../../utils/validators';
-import {
-  Authentication,
-  FirebaseError,
-} from '../../utils/types/authentication';
+import { Authentication } from '../../utils/types/authentication';
 
 import styles from '../LoginScreen/styles';
+import { RequestRegisterEmailPassword } from '../../redux/user/actions';
 
 const ACCOUNT_EXISTS = 'I already have an account';
 const LOGIN = 'Login';
@@ -25,10 +23,9 @@ const SIGN_UP = 'Sign Up';
 const TITLE = 'Create account';
 const INSTRUCTION = 'Please, enter your name, email and password';
 const CONFIRM_PASSWORD = 'Confirm password';
-const EMAIL_IN_USE = 'That email address is already in use!';
-const INVALID_EMAIL = 'That email address is invalid!';
 
 function SignUpScreen({ navigation }: ScreenProps) {
+  const dispatch = useDispatch();
   const navigateToBack = () => {
     navigation.goBack();
   };
@@ -36,17 +33,8 @@ function SignUpScreen({ navigation }: ScreenProps) {
     navigation.navigate(ScreenList.LoginScreen);
   };
 
-  const onSignUp = async ({ Email, Password }: Authentication) => {
-    await auth()
-      .createUserWithEmailAndPassword(Email, Password)
-      .catch((error: FirebaseError) => {
-        if (error.code === 'auth/email-already-in-use') {
-          Alert.alert(EMAIL_IN_USE);
-        }
-        if (error.code === 'auth/invalid-email') {
-          Alert.alert(INVALID_EMAIL);
-        }
-      });
+  const onSignUp = ({ Email, Password }: Authentication) => {
+    dispatch(RequestRegisterEmailPassword(Email, Password));
   };
 
   const footer = (
@@ -59,8 +47,8 @@ function SignUpScreen({ navigation }: ScreenProps) {
         [PASSWORD_FIELD]: '',
         [PASSWORD_CONFIRMATION_FIELD]: '',
       },
-      onSubmit: async (userData) => {
-        await onSignUp(userData);
+      onSubmit: (userData) => {
+        onSignUp(userData);
       },
       validationSchema: signUpValidationSchema,
     });

@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
-import detailsReducer from './details/reducer';
 
+import userReducer from './user/reducer';
+import detailsReducer from './details/reducer';
 import moviesReducer from './movies/reducer';
 
 const rootReducer = combineReducers({
+  user: userReducer,
   movies: moviesReducer,
   details: detailsReducer,
 });
