@@ -1,40 +1,17 @@
 import React from 'react';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
-import { Alert, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import Google from '../../assets/google';
-import { ScreenList, NavProp } from '../../utils/types/navigation';
-import { FirebaseError } from '../../utils/types/authentication';
-import WEB_CLIENT_ID from '../../utils/constants/webClientId';
+import { RequestOnGoogleSignIn } from '../../redux/user/actions';
 
 import styles from './styles';
 
 function SocialMediaLogin(): JSX.Element {
-  const navigation = useNavigation<NavProp>();
-  const navigateToMovies = () => {
-    navigation.navigate(ScreenList.HomeTabNavigator);
-  };
-
-  GoogleSignin.configure({
-    webClientId: WEB_CLIENT_ID,
-  });
-  const onGoogleSignIn = async () => {
-    const { idToken } = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    await auth().signInWithCredential(googleCredential);
-  };
+  const dispatch = useDispatch();
 
   const handleSignIn = () => {
-    onGoogleSignIn()
-      .then(() => {
-        navigateToMovies();
-      })
-      .catch((err) => {
-        const error = err as FirebaseError;
-        Alert.alert(error.message);
-      });
+    dispatch(RequestOnGoogleSignIn());
   };
 
   return (

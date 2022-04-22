@@ -6,6 +6,8 @@ import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 import { IMovieDetails } from './details/types';
 import { IMovie } from './movies/types';
+import { UserState } from './user/types';
+// import { IUserState } from './user/types';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewareToApply = [sagaMiddleware];
@@ -13,6 +15,7 @@ const middlewareToApply = [sagaMiddleware];
 export interface StoreState {
   movies: IMovie[];
   details: IMovieDetails;
+  user: any;
 }
 
 if (__DEV__) {
