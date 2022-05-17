@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { IconButton } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,13 +12,20 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import LabelIcon from '../../components/LabelIcon/LabelIcon';
 import ActivityIndicator from '../../components/ActivityIndicator/ActivityIndicator';
 import { DetailsScreenProps } from '../../utils/types/navigation';
+import {
+  addToWatchlist,
+  removeFromWatchlist,
+} from '../../redux/movies/actions';
 
 import theme from '../../theme';
 import styles from './styles';
+import { watchlistSelector } from '../../redux/movies/selectors';
 
 function DetailsScreen({ route, navigation }: DetailsScreenProps) {
+  const imdbID = route.params.id;
   const dispatch = useAppDispatch();
   const detailsSelector = useAppSelector(getMovieDetails);
+  const getMovieCheck = useAppSelector(watchlistSelector);
 
   useEffect(() => {
     dispatch(fetchMovieDetails(route.params.id));
@@ -71,6 +78,13 @@ function DetailsScreen({ route, navigation }: DetailsScreenProps) {
     </View>
   ));
 
+  const saveMovie = () => {
+    dispatch(addToWatchlist(detailsSelector));
+  };
+  const removeMovie = () => {
+    dispatch(removeFromWatchlist(detailsSelector));
+  };
+
   return (
     <ScrollView>
       {!Object.keys(detailsSelector).length ? (
@@ -98,12 +112,25 @@ function DetailsScreen({ route, navigation }: DetailsScreenProps) {
             </View>
 
             <View style={styles.descriptionContainer}>
-              <IconButton
-                style={styles.likeButton}
-                size={35}
-                icon="heart"
-                color={theme.colors.WHITE}
-              />
+              {getMovieCheck.findIndex((movie) => movie.imdbID === imdbID) ===
+              -1 ? (
+                <IconButton
+                  style={styles.likeButton}
+                  size={35}
+                  icon="heart"
+                  onPress={saveMovie}
+                  color={theme.colors.WHITE}
+                />
+              ) : (
+                <IconButton
+                  style={styles.likeButton}
+                  size={35}
+                  icon="heart"
+                  onPress={removeMovie}
+                  color={theme.colors.ORANGE}
+                />
+              )}
+
               <Text style={styles.title}>{Title}</Text>
               <Text style={styles.plot}>{Plot}</Text>
 

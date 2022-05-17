@@ -5,6 +5,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import { FirebaseError } from '../utils/types/authentication';
 import WEB_CLIENT_ID from '../utils/constants/webClientId';
+import { IMovie } from '../redux/movies/types';
 
 const INCORRECT_DATA = 'Incorrect email or password';
 const EMAIL_IN_USE = 'That email address is already in use!';
@@ -51,9 +52,55 @@ const onGoogleSignIn = async () => {
   await auth().signInWithCredential(googleCredential);
 };
 
+// сохраняем в firestore ++++
+const saveMovieToUserWatchlist = async (movie: IMovie) => {
+  await firebase
+    .firestore()
+    .collection('watchlist')
+    .doc(firebase.auth().currentUser?.uid)
+    .collection('userWatchlist')
+    .doc(movie.Title)
+    .set(movie)
+    .catch((error: FirebaseError) => Alert.alert(error.message));
+};
+
+// удаляем из firestore ++++
+const removeMovieFromUserWatchlist = async (movie: IMovie) => {
+  await firebase
+    .firestore()
+    .collection('watchlist')
+    .doc(firebase.auth().currentUser?.uid)
+    .collection('userWatchlist')
+    .doc(movie.Title)
+    .delete()
+    .catch((error: FirebaseError) => Alert.alert(error.message));
+};
+
+// загружаем из firestore +++++
+const fetchSavedMoviesFromFirestore = async () => {
+  await firebase
+    .firestore()
+    .collection('watchlist')
+    .doc(firebase.auth().currentUser?.uid)
+    .collection('userWatchlist')
+    .get()
+    .then((snapshot) => {
+      const movies = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        const { id } = doc;
+        return { id, ...data };
+      });
+      console.log('user`s watchlist: ', movies); // фильмы выводятся
+    })
+    .catch((error: FirebaseError) => Alert.alert(error.message));
+};
+
 export {
   loginWithEmailPassword,
   registerEmailPassword,
   logout,
   onGoogleSignIn,
+  saveMovieToUserWatchlist,
+  removeMovieFromUserWatchlist,
+  fetchSavedMoviesFromFirestore,
 };

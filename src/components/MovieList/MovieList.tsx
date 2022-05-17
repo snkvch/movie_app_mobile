@@ -3,7 +3,7 @@ import { View, FlatList } from 'react-native';
 
 import MovieItem from '../MovieItem/MovieItem';
 import EmptyList from '../EmptyList/EmptyList';
-import getAllMovies from '../../redux/movies/selectors';
+import { getAllMovies } from '../../redux/movies/selectors';
 import { useAppSelector } from '../../redux/hooks';
 
 import styles from './styles';
