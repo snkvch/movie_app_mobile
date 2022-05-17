@@ -52,7 +52,6 @@ const onGoogleSignIn = async () => {
   await auth().signInWithCredential(googleCredential);
 };
 
-// сохраняем в firestore ++++
 const saveMovieToUserWatchlist = async (movie: IMovie) => {
   await firebase
     .firestore()
@@ -64,7 +63,6 @@ const saveMovieToUserWatchlist = async (movie: IMovie) => {
     .catch((error: FirebaseError) => Alert.alert(error.message));
 };
 
-// удаляем из firestore ++++
 const removeMovieFromUserWatchlist = async (movie: IMovie) => {
   await firebase
     .firestore()
@@ -76,9 +74,8 @@ const removeMovieFromUserWatchlist = async (movie: IMovie) => {
     .catch((error: FirebaseError) => Alert.alert(error.message));
 };
 
-// загружаем из firestore +++++
 const fetchSavedMoviesFromFirestore = async () => {
-  await firebase
+  const response = await firebase
     .firestore()
     .collection('watchlist')
     .doc(firebase.auth().currentUser?.uid)
@@ -90,9 +87,10 @@ const fetchSavedMoviesFromFirestore = async () => {
         const { id } = doc;
         return { id, ...data };
       });
-      console.log('user`s watchlist: ', movies); // фильмы выводятся
+      return movies;
     })
     .catch((error: FirebaseError) => Alert.alert(error.message));
+  return response;
 };
 
 export {

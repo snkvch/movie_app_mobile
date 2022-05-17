@@ -14,7 +14,6 @@ function WatchlistScreen() {
 
   useEffect(() => {
     dispatch(fetchWatchlist());
-    console.log('watchlist:', watchlist);
   }, [dispatch]);
 
   return (

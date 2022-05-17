@@ -44,11 +44,10 @@ function* requestMovies({
 
 function* requestWatchlist(): Generator<CallEffect | PutEffect, void, never> {
   try {
-    const { data } = yield call(fetchSavedMoviesFromFirestore);
+    const data = yield call(fetchSavedMoviesFromFirestore);
     yield put(storeWatchlist(data));
   } catch (error) {
     yield put({ type: MoviesActionTypes.WATCHLIST_FETCH_FAILED });
-    Alert.alert('Error to requestWatchlist');
   }
 }
 
@@ -61,7 +60,6 @@ function* saveMovieToWatchlist({
     yield put(addToWatchlist(data));
   } catch (error) {
     yield put({ type: MoviesActionTypes.WATCHLIST_FETCH_FAILED });
-    Alert.alert('Cannot save', JSON.stringify(error));
   }
 }
 
@@ -74,7 +72,6 @@ function* deleteMovieFromWatchlist({
     yield put(removeFromWatchlist(data));
   } catch (error) {
     yield put({ type: MoviesActionTypes.WATCHLIST_FETCH_FAILED });
-    Alert.alert('Cannot delete', JSON.stringify(error));
   }
 }
 

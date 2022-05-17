@@ -49,10 +49,13 @@ const moviesReducer = (
 
     case MoviesActionTypes.REMOVE_MOVIE_FROM_WATCHLIST: {
       const results = state.watchlist.filter(
-        // filter() заменить на some()
         (movie) => movie.imdbID !== action.payload.imdbID,
       );
       return { ...state, watchlist: results };
+    }
+
+    case MoviesActionTypes.REMOVE_WATCHLIST: {
+      return initialState;
     }
 
     default:

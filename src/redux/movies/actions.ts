@@ -17,7 +17,7 @@ export const fetchWatchlist = () =>
     type: MoviesActionTypes.WATCHLIST_FETCH_REQUESTED,
   } as const);
 
-export const storeWatchlist = (movies: { id: string }[]) =>
+export const storeWatchlist = (movies: IMovie[]) =>
   ({
     type: MoviesActionTypes.WATCHLIST_FETCH_SUCCEEDED,
     payload: movies,
@@ -33,4 +33,9 @@ export const removeFromWatchlist = (imdbID: IMovie) =>
   ({
     type: MoviesActionTypes.REMOVE_MOVIE_FROM_WATCHLIST,
     payload: imdbID,
+  } as const);
+
+export const removeWatchlist = () =>
+  ({
+    type: MoviesActionTypes.REMOVE_WATCHLIST,
   } as const);

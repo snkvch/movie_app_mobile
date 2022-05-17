@@ -112,8 +112,7 @@ function DetailsScreen({ route, navigation }: DetailsScreenProps) {
             </View>
 
             <View style={styles.descriptionContainer}>
-              {getMovieCheck.findIndex((movie) => movie.imdbID === imdbID) ===
-              -1 ? (
+              {!getMovieCheck.some((movie) => movie.imdbID === imdbID) ? (
                 <IconButton
                   style={styles.likeButton}
                   size={35}
