@@ -4,10 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RouteProp, ParamListBase } from '@react-navigation/native';
 
-import { WatchlistScreen } from '../../screens';
 import theme from '../../theme';
 import styles from './styles';
 import MoviesNavigator from '../MoviesNavigator';
+import WatchlistNavigator from '../WatchlistNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -59,7 +59,7 @@ function AuthorizedNavigator() {
       })}
     >
       <Tab.Screen name={ROUTE_NAMES.MOVIES} component={MoviesNavigator} />
-      <Tab.Screen name={ROUTE_NAMES.WATCHLIST} component={WatchlistScreen} />
+      <Tab.Screen name={ROUTE_NAMES.WATCHLIST} component={WatchlistNavigator} />
     </Tab.Navigator>
   );
 }
