@@ -3,9 +3,10 @@ import { ScrollView, View } from 'react-native';
 import { IconButton, Text, Title } from 'react-native-paper';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { Container, CustomButton, TextInput, Footer } from '../../components';
-import { ScreenList, ScreenProps } from '../../utils/types/navigation';
+import { ScreenList, ScreenProps, Nav } from '../../utils/types/navigation';
 import { loginValidationSchema } from '../../utils/validators';
 import {
   EMAIL_FIELD,
@@ -25,15 +26,16 @@ const SIGN_UP = 'Sign Up';
 
 function LoginScreen({ navigation }: ScreenProps) {
   const dispatch = useDispatch();
+  const { navigate } = useNavigation<Nav>();
 
   const navigateToBack = () => {
     navigation.goBack();
   };
   const navigateToSignUp = () => {
-    navigation.navigate(ScreenList.SignUpScreen);
+    navigate(ScreenList.SignUpScreen);
   };
   const navigateToForgotPassword = () => {
-    navigation.navigate(ScreenList.ForgotPasswordScreen);
+    navigate(ScreenList.ForgotPasswordScreen);
   };
 
   const footer = (

@@ -2,18 +2,21 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import AnimatedLottieView from 'lottie-react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Container, CloseButton } from '../../components';
-import { ScreenList, ScreenProps } from '../../utils/types/navigation';
+import { ScreenList, Nav } from '../../utils/types/navigation';
 import Animation from '../../assets/animation.json';
 
 import styles from './styles';
 
 const TITLE = 'Code was sent to your email account';
 
-function PasswordChangedScreen({ navigation }: ScreenProps) {
+function PasswordChangedScreen() {
+  const { navigate } = useNavigation<Nav>();
+
   const navigateToWelcomePage = () => {
-    navigation.navigate(ScreenList.WelcomeScreen);
+    navigate(ScreenList.WelcomeScreen);
   };
   const footer = <CloseButton onPress={navigateToWelcomePage} />;
 

@@ -3,15 +3,16 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 import { MovieCard } from '../../utils/types/movieItem';
-import { NavProp, ScreenList } from '../../utils/types/navigation';
+import { ScreenList, Nav } from '../../utils/types/navigation';
 
 import styles from './styles';
 
 function MovieItem({ movie }: MovieCard): JSX.Element {
+  const { navigate } = useNavigation<Nav>();
   const { Title, Year, Poster, imdbID } = movie;
-  const navigation = useNavigation<NavProp>();
+
   const navigateToDetailsScreen = () => {
-    navigation.navigate(ScreenList.DetailsScreen, { id: imdbID });
+    navigate(ScreenList.DetailsScreen, { id: imdbID });
   };
   return (
     <TouchableOpacity onPress={navigateToDetailsScreen}>

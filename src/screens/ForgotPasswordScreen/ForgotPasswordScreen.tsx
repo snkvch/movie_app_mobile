@@ -3,8 +3,9 @@ import { Alert, ScrollView, View } from 'react-native';
 import { IconButton, Text, Title } from 'react-native-paper';
 import { useFormik } from 'formik';
 import auth from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 
-import { ScreenList, ScreenProps } from '../../utils/types/navigation';
+import { ScreenList, Nav } from '../../utils/types/navigation';
 import { Container, CustomButton, Footer, TextInput } from '../../components';
 import { EMAIL_FIELD } from '../../utils/constants/fieldConstants';
 import { emailValidationSchema } from '../../utils/validators';
@@ -18,15 +19,17 @@ const QUESTION = 'Do not have an account?';
 const ACTION = 'Sign Up here';
 const ERROR = 'Oops, something went wrong';
 
-function ForgotPasswordScreen({ navigation }: ScreenProps) {
+function ForgotPasswordScreen() {
+  const { navigate } = useNavigation<Nav>();
+
   const navigateToWelcomePage = () => {
-    navigation.navigate(ScreenList.WelcomeScreen);
+    navigate(ScreenList.WelcomeScreen);
   };
   const navigateToSignUp = () => {
-    navigation.navigate(ScreenList.SignUpScreen);
+    navigate(ScreenList.SignUpScreen);
   };
   const navigateToPasswordChanged = () => {
-    navigation.navigate(ScreenList.PasswordChangedScreen);
+    navigate(ScreenList.PasswordChangedScreen);
   };
 
   const footer = (

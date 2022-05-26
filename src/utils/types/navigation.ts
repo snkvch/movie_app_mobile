@@ -17,16 +17,16 @@ export enum ScreenList {
 }
 
 export type RootStackParamList = {
-  [ScreenList.WelcomeScreen]: { name: string } | undefined;
-  [ScreenList.SignUpScreen]: { name: string } | undefined;
-  [ScreenList.LoginScreen]: { name: string } | undefined;
-  [ScreenList.ForgotPasswordScreen]: { name: string } | undefined;
-  [ScreenList.PasswordChangedScreen]: { name: string } | undefined;
-  [ScreenList.MoviesScreen]: { name: string } | undefined;
-  [ScreenList.HomeTabNavigator]: { name: string } | undefined;
+  [ScreenList.WelcomeScreen]: undefined;
+  [ScreenList.SignUpScreen]: undefined;
+  [ScreenList.LoginScreen]: undefined;
+  [ScreenList.ForgotPasswordScreen]: undefined;
+  [ScreenList.PasswordChangedScreen]: undefined;
+  [ScreenList.MoviesScreen]: undefined;
+  [ScreenList.HomeTabNavigator]: undefined;
   [ScreenList.DetailsScreen]: { id: string };
-  [ScreenList.MoviesNavigator]: { name: string } | undefined;
-  [ScreenList.WatchlistScreen]: { name: string } | undefined;
+  [ScreenList.MoviesNavigator]: undefined;
+  [ScreenList.WatchlistScreen]: undefined;
 };
 
 export type DetailsScreenProps = NativeStackScreenProps<
@@ -38,4 +38,8 @@ export type NavProp = NativeStackNavigationProp<RootStackParamList>;
 
 export type ScreenProps = {
   navigation: NavProp;
+};
+
+export type Nav = {
+  navigate: (screen: string, id?: { id: string }) => void;
 };

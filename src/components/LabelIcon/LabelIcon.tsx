@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { LabelIconProps } from '../../utils/types/labelIcon';
+
 import theme from '../../theme';
 
 function LabelIcon({ name }: LabelIconProps) {

@@ -4,10 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RouteProp, ParamListBase } from '@react-navigation/native';
 
-import theme from '../../theme';
-import styles from './styles';
 import MoviesNavigator from '../MoviesNavigator';
 import WatchlistNavigator from '../WatchlistNavigator';
+
+import theme from '../../theme';
+import styles from './styles';
 
 const Tab = createBottomTabNavigator();
 
