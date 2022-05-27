@@ -1,9 +1,10 @@
 import React from 'react';
 import { TextInput as RNTextInput } from 'react-native-paper';
-import theme from '../../theme';
 
 import { TextInputProps } from '../../utils/types/textInput';
+
 import styles from './styles';
+import theme from '../../theme';
 
 function TextInput({ label, icon, onChangeText, onBlur }: TextInputProps) {
   const isSecure = label === 'Password' || label === 'Confirm password';

@@ -1,19 +1,16 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 
-import MovieItem from '../MovieItem/MovieItem';
-import EmptyList from '../EmptyList/EmptyList';
-import getAllMovies from '../../redux/movies/selectors';
-import { useAppSelector } from '../../redux/hooks';
+import { EmptyList, MovieItem } from '..';
+import { MovieListProps } from '../../utils/types/movieList';
 
 import styles from './styles';
 
-function MovieList(): JSX.Element {
-  const moviesList = useAppSelector(getAllMovies);
+function MovieList({ data }: MovieListProps): JSX.Element {
   return (
     <View>
       <FlatList
-        data={moviesList}
+        data={data}
         contentContainerStyle={styles.contentContainerStyle}
         keyExtractor={(item) => item.imdbID}
         renderItem={({ item }) => <MovieItem movie={item} />}

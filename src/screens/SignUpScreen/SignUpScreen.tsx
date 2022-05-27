@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { IconButton, Title } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { CustomButton, Container, TextInput, Footer } from '../../components';
 import {
@@ -10,12 +11,12 @@ import {
   EMAIL_FIELD,
   PASSWORD_FIELD,
 } from '../../utils/constants/fieldConstants';
-import { ScreenList, ScreenProps } from '../../utils/types/navigation';
+import { ScreenList, ScreenProps, Nav } from '../../utils/types/navigation';
 import { signUpValidationSchema } from '../../utils/validators';
 import { Authentication } from '../../utils/types/authentication';
+import { RequestRegisterEmailPassword } from '../../redux/user/actions';
 
 import styles from '../LoginScreen/styles';
-import { RequestRegisterEmailPassword } from '../../redux/user/actions';
 
 const ACCOUNT_EXISTS = 'I already have an account';
 const LOGIN = 'Login';
@@ -26,11 +27,13 @@ const CONFIRM_PASSWORD = 'Confirm password';
 
 function SignUpScreen({ navigation }: ScreenProps) {
   const dispatch = useDispatch();
+  const { navigate } = useNavigation<Nav>();
+
   const navigateToBack = () => {
     navigation.goBack();
   };
   const navigateToSignUp = () => {
-    navigation.navigate(ScreenList.LoginScreen);
+    navigate(ScreenList.LoginScreen);
   };
 
   const onSignUp = ({ Email, Password }: Authentication) => {

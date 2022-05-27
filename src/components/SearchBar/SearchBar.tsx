@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
 import { Searchbar as RNSearchBar } from 'react-native-paper';
 import { useAppDispatch } from '../../redux/hooks';
 import { fetchMovies } from '../../redux/movies/actions';

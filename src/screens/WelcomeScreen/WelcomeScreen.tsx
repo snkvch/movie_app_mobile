@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { firebase } from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 
 import { CustomButton } from '../../components';
-import { ScreenProps, ScreenList } from '../../utils/types/navigation';
+import { ScreenList, Nav } from '../../utils/types/navigation';
 import { AuthButtonProps } from '../../utils/types/button';
 
 import image from '../../assets/bg.jpg';
@@ -14,9 +15,11 @@ const AuthButtons: Array<AuthButtonProps> = [
   { text: 'Login', route: ScreenList.LoginScreen },
 ];
 
-function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
+function WelcomeScreen(): JSX.Element {
+  const { navigate } = useNavigation<Nav>();
+
   const navigateToHomeTab = () => {
-    navigation.navigate(ScreenList.HomeTabNavigator);
+    navigate(ScreenList.HomeTabNavigator);
   };
 
   useEffect(() => {
@@ -40,7 +43,7 @@ function WelcomeScreen({ navigation }: ScreenProps): JSX.Element {
             mode="contained"
             text={button.text}
             key={button.text}
-            onPress={() => navigation.navigate(button.route)}
+            onPress={() => navigate(button.route)}
           />
         ))}
       </View>

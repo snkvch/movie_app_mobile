@@ -1,5 +1,7 @@
 export interface IMovieDetails {
   Title: string;
+  imdbID: string;
+  Type: string;
   imdbRating: string;
   imdbVotes: string;
   Runtime: string;

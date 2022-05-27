@@ -15,10 +15,18 @@ export enum MoviesActionTypes {
   MOVIES_FETCH_REQUESTED = 'MOVIES_FETCH_REQUESTED',
   MOVIES_FETCH_SUCCEEDED = 'MOVIES_FETCH_SUCCEEDED',
   MOVIES_FETCH_FAILED = 'MOVIES_FETCH_FAILED',
+
+  WATCHLIST_FETCH_REQUESTED = 'WATCHLIST_FETCH_REQUESTED',
+  WATCHLIST_FETCH_SUCCEEDED = 'WATCHLIST_FETCH_SUCCEEDED',
+  WATCHLIST_FETCH_FAILED = 'WATCHLIST_FETCH_FAILED',
+  ADD_MOVIE_TO_WATCHLIST = 'ADD_MOVIE_TO_WATCHLIST',
+  REMOVE_MOVIE_FROM_WATCHLIST = 'REMOVE_MOVIE_FROM_WATCHLIST',
+  REMOVE_WATCHLIST = 'REMOVE_WATCHLIST',
 }
 
 export interface MoviesState {
   movies: IMovie[];
+  watchlist: IMovie[];
   errors: null | string;
   loading: boolean;
 }
@@ -36,7 +44,41 @@ export interface FetchMoviesActionFailed {
   payload: string;
 }
 
+export interface FetchWatchlistAction {
+  type: MoviesActionTypes.WATCHLIST_FETCH_REQUESTED;
+}
+
+export interface FetchWatchlistActionSucceeded {
+  type: MoviesActionTypes.WATCHLIST_FETCH_SUCCEEDED;
+  payload: IMovie[];
+}
+
+export interface FetchWatchlistActionFailed {
+  type: MoviesActionTypes.WATCHLIST_FETCH_FAILED;
+  payload: string;
+}
+
+export interface AddToMovieWatchlist {
+  type: MoviesActionTypes.ADD_MOVIE_TO_WATCHLIST;
+  payload: IMovie;
+}
+
+export interface RemoveMovieFromWatchlist {
+  type: MoviesActionTypes.REMOVE_MOVIE_FROM_WATCHLIST;
+  payload: IMovie;
+}
+
+export interface RemoveWatchlist {
+  type: MoviesActionTypes.REMOVE_WATCHLIST;
+}
+
 export type ActionTypes =
   | FetchMoviesAction
   | FetchMoviesActionSucceeded
-  | FetchMoviesActionFailed;
+  | FetchMoviesActionFailed
+  | AddToMovieWatchlist
+  | RemoveMovieFromWatchlist
+  | FetchWatchlistActionSucceeded
+  | FetchWatchlistAction
+  | FetchWatchlistActionFailed
+  | RemoveWatchlist;

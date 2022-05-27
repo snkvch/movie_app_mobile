@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 
-import { Header, SearchBar } from '../../components';
-import MovieList from '../../components/MovieList/MovieList';
+import { Header, SearchBar, MovieList } from '../../components';
+
 import { fetchMovies } from '../../redux/movies/actions';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getAllMovies } from '../../redux/movies/selectors';
 
 import styles from './styles';
 
 function MoviesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
+  const moviesList = useAppSelector(getAllMovies);
 
   useEffect(() => {
     dispatch(fetchMovies());
@@ -19,7 +21,7 @@ function MoviesScreen(): JSX.Element {
     <View style={styles.container}>
       <Header />
       <SearchBar />
-      <MovieList />
+      <MovieList data={moviesList} />
     </View>
   );
 }

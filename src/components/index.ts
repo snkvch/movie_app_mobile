@@ -7,3 +7,6 @@ export { default as CloseButton } from './CloseButton/CloseButton';
 export { default as Header } from './Header/Header';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as EmptyList } from './EmptyList/EmptyList';
+export { default as MovieList } from './MovieList/MovieList';
+export { default as MovieItem } from './MovieItem/MovieItem';
+export { default as ActivityIndicator } from './ActivityIndicator/ActivityIndicator';
