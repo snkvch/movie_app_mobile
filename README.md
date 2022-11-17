@@ -11,6 +11,7 @@
 - MaterialUI;
 - FlatList!;
 - eslint;
+- Redux Persist;
 
 ## Requirements:
 
@@ -42,3 +43,6 @@
 - Wishlist screen:
   - list of the favorite movies
  
+
+https://user-images.githubusercontent.com/78703258/202425833-8caf9a6d-b356-423e-aa69-210ef06eeb15.mp4
+
