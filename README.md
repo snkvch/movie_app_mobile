@@ -6,12 +6,17 @@
 - Redux;
 - React Navigation
 - Redux Saga;
+- Redux Persist;
+- redux-flipper;
 - Reselect;
+- yup;
+- Formik;
 - Firebase Firestore & Authentication;
 - MaterialUI;
 - FlatList!;
 - eslint;
-- Redux Persist;
+- Lottie Animation
+- axios;
 
 ## Requirements:
 
